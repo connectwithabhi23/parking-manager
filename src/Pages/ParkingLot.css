@@ -1,0 +1,51 @@
+#parking-lot{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    /* background-color: aqua; */
+}
+
+#parking-lots{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.empty{
+    background-color:rgb(96, 212, 111);
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+#allocate-btn{
+    background-color: rgba(48, 122, 207, 0.904);
+    text-align: center;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    position: fixed;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%,0);
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    outline: none;
+    border-style: none;
+}
+div.booked{
+    background-color: rgb(184, 144, 116);
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
