@@ -18,10 +18,11 @@
 
 .empty{
     background-color:rgb(96, 212, 111);
-    height: 50px;
-    width: 50px;
+    height: 70px;
+    width: 70px;
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -43,9 +44,10 @@
 }
 div.booked{
     background-color: rgb(184, 144, 116);
-    height: 50px;
-    width: 50px;
+    height: 70px;
+    width: 70px;
     margin: 20px;
-    padding: 20px;
-    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    /* text-align: center; */
 }

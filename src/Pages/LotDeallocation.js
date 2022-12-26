@@ -6,34 +6,29 @@ import { useNavigate } from 'react-router-dom';
 function LotDeallocation() {
 
     const [charges, setCharges] = useState(10)
-    const info = useContext(ParkingLotsContext)
+    const [index, setIndex] = useState('');
+    const[lots, setLots] = useState([]);
     const navigate = useNavigate()
-    const {lotToDeallocate, parkingLots, setParkingLots} = info
-    const lot = parkingLots[lotToDeallocate];
-
 
     const deallocateLot = ()=>{
         alert('Payment done');
-        parkingLots[lotToDeallocate] = {id : lotToDeallocate+1, isAllocated : false, registrationNumber : ''}
-        setParkingLots([...parkingLots])
-
+        lots[index] = {id : Number(index)+1, isAllocated : false, registrationNumber : ''}
+        localStorage.setItem('parkingLots', JSON.stringify([...lots]))
         navigate('/parkinglot')
     }
 
     useEffect(()=>{
-
         let minutesSpent = 0;
         let hoursSpent = 0;
         const calculateCharges = ()=>{
-
             if(hoursSpent >12){
                 charges += (hoursSpent - 2)*10 
             }
-
             setCharges(charges)
         }
-
         calculateCharges()
+        setIndex(localStorage.getItem('index'))
+        setLots(JSON.parse(localStorage.getItem('parkingLots')))
 
     },[])
 
@@ -41,11 +36,11 @@ function LotDeallocation() {
     <div>LotDeallocation
         <h2> Remove this Parked Car</h2>
         <h5>Parking Location</h5>
-        <p>Parked at slot {lotToDeallocate+1} </p>
+        <p>Parked at slot {Number(index)+1} </p>
         <h5>Registration Number</h5>
-        <p>{lot.registrationNumber}</p>
+        <p>{lots[index]?.registrationNumber}</p>
         <h5> Parked at </h5>
-        <p>{ lot.allocationTime}</p>
+        <p>{ lots[index]?.allocationTime}</p>
         <h5> Current Time</h5>
         <p>{moment().format("llll")}`</p>
         <h5> Total Charges</h5>

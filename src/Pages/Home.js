@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { InputContext } from '../App'
 
 function Home() {
-    const inputData = useContext(InputContext)
+    const [input, setInput] = useState('')
     const navigate = useNavigate()
 
     const handleChange = (e)=>{
 
         if(!isNaN(e.target.value))
-        inputData.setInput(e.target.value);
+        setInput(e.target.value);
 
         else{
             alert('please enter correct number')
@@ -17,21 +17,21 @@ function Home() {
     }
 
     const handleClick = ()=>{
-
         const arr = [];
-
-        for(let i = 0; i < inputData.input ; i++){
-            arr.push({id: i+1, isAllocated : false, registrationNumber :''})
+        for(let i = 0; i < input ; i++){
+            arr.push({id: i+1, isAllocated : false})
         }
-        inputData.setParkingLots(arr);
+        localStorage.setItem('parkingLots',JSON.stringify(arr));
         navigate('/parkinglot')
     }
   return (
     <div>
         <h3>Car Parking Manager</h3>
-        <input type={'text'} placeholder='enter the number of spaces' value={inputData.input} onChange={handleChange}></input>
-        <br></br>
-        <button onClick={handleClick}>Create Parking Lots</button>
+        <input type={'text'} placeholder='enter the number of lots'
+         value={input} onChange={handleChange} style={{padding: '10px'}} ></input>
+         <br></br>
+         <br></br>
+        <button onClick={handleClick} >Create Parking Lots</button>
     </div>
   )
 }

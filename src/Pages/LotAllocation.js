@@ -1,28 +1,37 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 import './ParkingLot.css'
-import { ParkingLotsContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
 function LotAllocation() {
     const [registrationNumber, setRegistrationNumber] = useState('');
-    const ParkingLotsData = useContext(ParkingLotsContext)
-    // console.log(ParkingLotsData[0].length)
+    const [lots , setLots]= useState([])
     const navigate = useNavigate()
 
+    useEffect(()=>{
+
+      const items = JSON.parse(localStorage.getItem('parkingLots'))
+      setLots([...items])
+
+
+    },[])
+
     const handleClick = ()=>{
-
+      if(registrationNumber==='' || registrationNumber.trim().length===0){
+        alert('please enter car number')
+        return;
+      }
         while(true){
-          let randomNum= Math.floor(Math.random() *ParkingLotsData[0].length  + 1);
+        
+          let randomNum= Math.floor(Math.random() *lots.length  + 1);
             console.log(randomNum)
-            // console.log(ParkingLotsData[0][randomNumber])
 
-            if(ParkingLotsData[0][randomNum - 1].isAllocated === false){
-              // ParkingLotsData[0][randomNumber].isAllocated= false
-              ParkingLotsData[0][randomNum -1].isAllocated = true;
-              ParkingLotsData[0][randomNum - 1] .registrationNumber = registrationNumber
-              ParkingLotsData[0][randomNum - 1] .allocationTime = moment().format('llll');
-              ParkingLotsData[1]([...ParkingLotsData[0]])
+
+            if(lots[randomNum-1].isAllocated === false){
+              lots[randomNum -1].isAllocated = true;
+              lots[randomNum - 1] .registrationNumber = registrationNumber
+              lots[randomNum - 1] .allocationTime = moment().format('llll');
+              localStorage.setItem('parkingLots',JSON.stringify(lots))
             
                navigate('/parkinglot')
                break;

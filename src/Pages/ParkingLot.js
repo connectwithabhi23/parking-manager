@@ -1,25 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ParkingLotsContext } from '../App'
 import './ParkingLot.css'
 
 
 
 function ParkingLot() {
-    const ParkingLotsData = useContext(ParkingLotsContext)
     const navigate = useNavigate();
+    const [lots, setLots] = useState([])
+
+
+    useEffect(()=>{
+       const items = JSON.parse(localStorage.getItem('parkingLots'))
+       setLots([...items]);
+    },[])
 
     const handleClick = ()=>{
         let count = 0;
-        console.log(ParkingLotsData[0])
-
-        ParkingLotsData[0].forEach((lot)=>{
+        lots.forEach((lot)=>{
             if(lot.isAllocated){
                 count+= 1
             }
         })
 
-        if(count===ParkingLotsData[0].length){
+        if(count===lots.length){
             alert('Parking is full')
         }
         else{
@@ -29,10 +32,10 @@ function ParkingLot() {
 
     const deallocateSpace = (ind)=>{
 
-         const lot = ParkingLotsData[0][ind];
+         const lot = lots[ind];
 
         if(lot.isAllocated){
-            ParkingLotsData[2](ind)
+           localStorage.setItem('index',ind)
           navigate('/lotdeallocation')
         }
         else{
@@ -45,8 +48,8 @@ function ParkingLot() {
     <div id='parking-lot'>
      <h1>Parking Lot</h1>
     <div id='parking-lots'>
-    {ParkingLotsData[0].map((lot,ind)=>{
-        return(<div key={ind} className={lot.isAllocated ? 'booked' : 'empty'}   onClick={()=>{deallocateSpace(ind)}}>{lot.id}<br></br> { !lot.isAllocated ? <span>No car Parked</span>: lot.registrationNumber}</div>)
+    {lots.map((lot,ind)=>{
+        return(<div key={ind} className={lot?.isAllocated ? 'booked' : 'empty'}   onClick={()=>{deallocateSpace(ind)}}>{lot?.id}<br></br> { !lot?.isAllocated ? <span>No car Parked</span>: lot?.registrationNumber}</div>)
     })}
     </div>
     <button id='allocate-btn' onClick={handleClick}>Allocate Space</button>
