@@ -11,7 +11,7 @@ function LotAllocation() {
     useEffect(()=>{
 
       const items = JSON.parse(localStorage.getItem('parkingLots'))
-      setLots([...items])
+      setLots(items)
 
 
     },[])
@@ -39,15 +39,13 @@ function LotAllocation() {
         }
     }
 
-    const handleChange = (e)=>{
-      setRegistrationNumber(e.target.value)
-    } 
+   
   return (
     <div>
         <h3>Allocate Parking Space</h3>
         <p>Current Time : {moment().format('LTS')}</p>
         <input placeholder='enter car number' value={registrationNumber} 
-         style={{width: '250px', padding:'5px', margin:'10px'}} onChange={handleChange}></input>
+         style={{width: '250px', padding:'5px', margin:'10px'}} onChange={(e)=> setRegistrationNumber(e.target.value)}></input>
         
         <div><button style={{margin : '5px'}} onClick={handleClick}>Assign Space</button></div>
     </div>

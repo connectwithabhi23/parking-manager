@@ -14,6 +14,7 @@ export default function App() {
 
   return (
     <div className="App">
+      
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
          <Route path='/parkinglot' element={<ParkingLot></ParkingLot>}></Route>

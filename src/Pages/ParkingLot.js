@@ -11,7 +11,9 @@ function ParkingLot() {
 
     useEffect(()=>{
        const items = JSON.parse(localStorage.getItem('parkingLots'))
-       setLots([...items]);
+       console.log(items)
+       console.log(Array.isArray(items))
+       setLots(items);
     },[])
 
     const handleClick = ()=>{
@@ -48,7 +50,7 @@ function ParkingLot() {
     <div id='parking-lot'>
      <h1>Parking Lot</h1>
     <div id='parking-lots'>
-    {lots.map((lot,ind)=>{
+    {lots?.map((lot,ind)=>{
         return(<div key={ind} className={lot?.isAllocated ? 'booked' : 'empty'}   onClick={()=>{deallocateSpace(ind)}}>{lot?.id}<br></br> { !lot?.isAllocated ? <span>No car Parked</span>: lot?.registrationNumber}</div>)
     })}
     </div>
